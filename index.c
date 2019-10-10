@@ -47,7 +47,7 @@ printf("\n");
 while(1)
 {
     printf("INPUT: ");
-    if(scanf("%d",&type_of_op)==0)
+    if(scanf("%d",&crypt_type)==0)
       getchar();
     scanf("%d",&crypt_type);
     if(crypt_type>=1 && crypt_type<=no_of_algos)
@@ -66,7 +66,7 @@ printf("\n");
 while(1)
 {
     printf("INPUT: ");
-    if(scanf("%d",&type_of_op)==0)
+    if(scanf("%d",&object_type)==0)
       getchar();
     scanf("%d",&object_type);
     if(object_type>=1 && object_type<=no_of_objects)
