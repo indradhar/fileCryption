@@ -27,7 +27,8 @@ printf("1->encryption\n2->decryption\n");
 while(1)
 {
     printf("INPUT: ");
-    scanf("%d",&type_of_op);
+    if(scanf("%d",&type_of_op)==0)
+      getchar();
     if(type_of_op>=1 && type_of_op<=2)
       break;
     else
@@ -46,6 +47,8 @@ printf("\n");
 while(1)
 {
     printf("INPUT: ");
+    if(scanf("%d",&type_of_op)==0)
+      getchar();
     scanf("%d",&crypt_type);
     if(crypt_type>=1 && crypt_type<=no_of_algos)
       break;
@@ -63,6 +66,8 @@ printf("\n");
 while(1)
 {
     printf("INPUT: ");
+    if(scanf("%d",&type_of_op)==0)
+      getchar();
     scanf("%d",&object_type);
     if(object_type>=1 && object_type<=no_of_objects)
       break;
