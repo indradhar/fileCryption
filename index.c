@@ -23,13 +23,13 @@ type of objects
 
   */
 printf("choose one of the following operations to perform:\n");
-printf("1->encryption\n2->decryption\n");
+printf("1->encryption\n2->decryption\n3->hash(SHA-1)\n");
 while(1)
 {
     printf("INPUT: ");
     if(scanf("%d",&type_of_op)==0)
       getchar();
-    if(type_of_op>=1 && type_of_op<=2)
+    if(type_of_op>=1 && type_of_op<=3)
       break;
     else
       printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
