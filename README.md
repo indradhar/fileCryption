@@ -8,3 +8,6 @@ cryptographic hash(SHA-1)
 
 ### Usage
 Use CLI to choose options to perform desired operations
+
+### Compiling
+included make-file
