@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<conio.h>
-
+#include<stdlib.h>
 int main()
 { int i,j,type_of_op,crypt_type,object_type,no_of_algos,no_of_objects;
   char algos[3][15]={"ceaser cipher","AES","RSA"};
