@@ -11,7 +11,7 @@ int main()
 {
   int i,j,type_of_op,crypt_type,object_type,no_of_algos,no_of_objects;
   char algos[4][15]={"ceaser cipher","AES","RSA","SHA-1"};
-  char objects[3][10]={"string","file","goto main-menu"};
+  char objects[3][10]={"string","file","goto menu"};
   no_of_algos=sizeof(algos)/sizeof(algos[0]);
   no_of_objects=sizeof(objects)/sizeof(objects[0]);
   
