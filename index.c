@@ -24,6 +24,7 @@ int main()
     2->file
 
   */
+
   while(1) {
     printf("choose one of the following operations to perform:\n");
     printf("1->encryption\n2->decryption\n");
@@ -37,7 +38,6 @@ int main()
       else
         printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
     }
-
 
 
     printf("\n");
