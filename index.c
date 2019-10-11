@@ -64,7 +64,7 @@ int main()
       printf("INPUT: ");
       if(scanf("%d",&crypt_type)==0)
         getchar();
-      scanf("%d",&crypt_type);
+      //scanf("%d",&crypt_type);
       if(crypt_type>=1 && crypt_type<=no_of_algos)
         break;
       else
@@ -83,7 +83,7 @@ int main()
       printf("INPUT: ");
       if(scanf("%d",&object_type)==0)
         getchar();
-      scanf("%d",&object_type);
+      //scanf("%d",&object_type);
       if(object_type>=1 && object_type<=no_of_objects)
         break;
 
