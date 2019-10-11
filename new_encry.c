@@ -10,7 +10,7 @@ int randNumber(int lower,int upper)
 }
 
 void keyFile_encrypt_string(char *str)
-{
+{   fflush(stdin);
     FILE *fk;
     char key_file_name[11];
     int i,j,random;
@@ -39,7 +39,7 @@ void keyFile_encrypt_string(char *str)
 
 
 void keyFile_encrypt_file(char *file_name)
-{
+{     fflush(stdin);
       FILE *fs,*fd,*fk;
       char c,key_file_name[11];
       int i,j,random;
@@ -78,7 +78,7 @@ void keyFile_encrypt_file(char *file_name)
 }
 
 void keyFile_decrypt_string(char *str,char *key_file_name)
-{
+{   fflush(stdin);
     FILE *fk=fopen(key_file_name,"r");
     char c;
     int i,key;
@@ -100,7 +100,7 @@ void keyFile_decrypt_string(char *str,char *key_file_name)
 }
 
 void keyFile_decrypt_file(char *file_name,char *key_file_name)
-{
+{ fflush(stdin);
   FILE *fs,*fd,*fk;
   char c;
   int key;
@@ -144,6 +144,7 @@ void keyFile_encry(int object_type)
 {
   int i,j;
   char str[MAX_LIMIT],file_name[MAX_LIMIT];
+  fflush(stdin);
   switch(object_type)
   {
     case 1:
@@ -151,11 +152,13 @@ void keyFile_encry(int object_type)
           fgets(str,MAX_LIMIT-1,stdin);
           keyFile_encrypt_string(str);
           printf("tne encrypted string is:\' %s \'",str);
+          break;
 
     case 2:
             printf("please enter a absolute path of file that is to be encrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
             keyFile_encrypt_file(file_name);
+            break;
 
 
   }
@@ -163,7 +166,7 @@ void keyFile_encry(int object_type)
 
 void keyFile_decry(int object_type)
 {
-
+    fflush(stdin);
     char key_file_name[11],str[MAX_LIMIT],file_name[MAX_LIMIT];
 
 
@@ -176,12 +179,14 @@ void keyFile_decry(int object_type)
             fgets(key_file_name,10,stdin);
             keyFile_decrypt_string(str,key_file_name);
             printf("the decrypted string is : \" %s \" ",str);
+            break;
      case 2:
             printf("Enter the absolute path of the file that is to be decrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
             printf("Enter absolute path to keyFile that is used encrypt the given encrypted file\nINPUT:  ");
             fgets(key_file_name,10,stdin);
             keyFile_decrypt_file(file_name,key_file_name);
+            break;
 
     }
 }

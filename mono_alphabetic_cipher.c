@@ -56,6 +56,7 @@ void ma_cipher_encrypt(int object_type)
           ma_encrypt_string(str,encryption_key);
           printf("The encrypted string is : %s",str);
           printf("use this \'%s\' key to decrypt the string",encryption_key);
+          break;
 
     case 2:
           printf("please enter a path(absolute) to required file:\nINPUT: ");
@@ -79,6 +80,7 @@ void ma_cipher_encrypt(int object_type)
             remove(file_name);
             rename("dest.txt",file_name);
           }
+          break;
 
   }
 }
@@ -102,7 +104,7 @@ void ma_cipher_decrypt(int object_type)
 
   printf("please enter the encryption key that used for encryption\nINPUT: ");
   scanf("%s",encryption_key);
-  
+
   for(i=0;i<26;i++)
   {
     idx=encryption_key[i]-'A';
@@ -114,6 +116,7 @@ void ma_cipher_decrypt(int object_type)
             printf("please enter the encrypted string to decrypt! \n INPUT: ");
             fgets(str,MAX_LIMIT-1,stdin);
             ma_decrypt_string(str,decryption_key);
+            break;
     case 2:
             printf("please enter the file name that is to decrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
@@ -133,6 +136,7 @@ void ma_cipher_decrypt(int object_type)
             fclose(fd);
             remove(file_name);
             rename("dest.txt",file_name);
+            break;
 
   }
 

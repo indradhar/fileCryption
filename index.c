@@ -99,8 +99,10 @@ if(type_of_op==1)
   {
     case 1:
             ma_cipher_encrypt(object_type);
+            break;
     case 2:
             keyFile_encry(object_type);
+            break;
 
   }
 }
@@ -110,8 +112,10 @@ else if(type_of_op==2)
   {
     case 1:
             ma_cipher_decrypt(object_type);
+            break;
     case 2:
             keyFile_decry(object_type);
+            break;
 
   }
 
