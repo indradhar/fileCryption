@@ -10,13 +10,13 @@
 int main()
 {
   int i,j,type_of_op,crypt_type,object_type,no_of_algos,no_of_objects;
-  char algos[4][15]={"ceaser cipher","AES","RSA","SHA-1"};
+  char algos[5][30]={"mono alphabetic cipher","key file encryption","AES","RSA","SHA-1"};
   char objects[3][10]={"string","file","goto menu"};
   no_of_algos=sizeof(algos)/sizeof(algos[0]);
   no_of_objects=sizeof(objects)/sizeof(objects[0]);
-  
+
   /*
-  
+
   type of operations
     1->encryption / cryptographic hash
     2->decryption
@@ -91,6 +91,33 @@ int main()
         printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
 
     }
+
+
+if(type_of_op==1)
+{
+  switch(crypt_type)
+  {
+    case 1:
+            ma_cipher_encrypt(object_type);
+    case 2:
+            keyFile_encry(object_type);
+
+  }
+}
+else if(type_of_op==2)
+{
+  switch(crypt_type)
+  {
+    case 1:
+            ma_cipher_decrypt(object_type);
+    case 2:
+            keyFile_decry(object_type);
+
+  }
+
+
+}
+
   }
   return 0;
 }
