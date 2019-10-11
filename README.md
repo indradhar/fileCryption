@@ -2,8 +2,8 @@
 A simple C program for encryption/decryption/hashing.
 
 ### Features
-encrypt(RSA/AES)
-decrypt(RSA/AES)
+encrypt(RSA/AES)<br>
+decrypt(RSA/AES)<br>
 cryptographic hash(SHA-1)
 
 ### Usage
