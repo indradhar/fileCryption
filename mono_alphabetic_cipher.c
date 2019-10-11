@@ -83,7 +83,7 @@ void ma_cipher_encrypt(int object_type)
   }
 }
 
-void ma_decrypt_string(char *buffer,char *decryption_key)
+  void ma_decrypt_string(char *buffer,char *decryption_key)
 {   int i;
     for(i=0;i<strlen(buffer);i++)
     {
@@ -94,11 +94,15 @@ void ma_decrypt_string(char *buffer,char *decryption_key)
     }
 }
 
-void ma_cipher_decrypt(int object_type,char *encryption_key)
-{
+void ma_cipher_decrypt(int object_type)
+{ char encryption_key[26];
   char decryption_key[26],str[MAX_LIMIT],file_name[MAX_LIMIT],buffer[1025];
   int i,idx;
   FILE *fs,*fd;
+
+  printf("please enter the encryption key that used for encryption\nINPUT: ");
+  scanf("%s",encryption_key);
+  
   for(i=0;i<26;i++)
   {
     idx=encryption_key[i]-'A';
