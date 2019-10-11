@@ -135,7 +135,7 @@ void keyFile_decrypt_file(char *file_name,char *key_file_name)
   rename("dest.txt",file_name);
 
   printf("the file is successfully decrypted!");
-  
+
 }
 
 
