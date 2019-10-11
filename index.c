@@ -103,6 +103,22 @@ if(type_of_op==1)
     case 2:
             keyFile_encry(object_type);
             break;
+    case 3:
+            break;
+    case 4:
+            if(object_type==1) {
+              printf("Please enter string to hash(max length:2048) :");
+              char sth1[2048];
+              scanf("%2048s",sth1);
+              stringHash(sth1);
+             }
+            else if(object_type==2) {
+              printf("Please enter file path(max path length:2048) :");
+              char sth2[2048];
+              scanf("%2048s",sth2);
+              getFileHash(sth2);
+              break;
+            }
 
   }
 }
@@ -116,7 +132,11 @@ else if(type_of_op==2)
     case 2:
             keyFile_decry(object_type);
             break;
-
+    case 3:
+            break;
+    case 4:
+            printf("Not a valid option\n(good luck, if you mean it)\n");
+            break;
   }
 
 
