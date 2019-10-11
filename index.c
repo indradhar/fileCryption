@@ -24,59 +24,60 @@ int main()
     2->file
 
   */
-  printf("choose one of the following operations to perform:\n");
-  printf("1->encryption\n2->decryption\n");
-  while(1)
-  {
-    printf("INPUT: ");
-    if(scanf("%d",&type_of_op)==0)
-      getchar();
-    if(type_of_op>=1 && type_of_op<=2)
-      break;
-    else
-      printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
+  while(1) {
+    printf("choose one of the following operations to perform:\n");
+    printf("1->encryption\n2->decryption\n");
+    while(1)
+    {
+      printf("INPUT: ");
+      if(scanf("%d",&type_of_op)==0)
+        getchar();
+      if(type_of_op>=1 && type_of_op<=2)
+        break;
+      else
+        printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
+    }
+
+
+
+    printf("\n");
+    printf("choose any one cryptographic method from the following:\n");
+    for(i=0;i<no_of_algos;i++)
+    {
+     printf("%d->%s\n",i+1,algos[i]);
+    }
+    printf("\n");
+    while(1)
+    {
+      printf("INPUT: ");
+      if(scanf("%d",&crypt_type)==0)
+        getchar();
+      scanf("%d",&crypt_type);
+      if(crypt_type>=1 && crypt_type<=no_of_algos)
+        break;
+      else
+        printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
+
+    }
+    printf("\n");
+    printf("choose one type of object from the following:\n");
+    for(i=0;i<no_of_objects;i++)
+    {
+    printf("%d->%s\n",i+1,objects[i]);
+    }
+    printf("\n");
+    while(1)
+    {
+      printf("INPUT: ");
+      if(scanf("%d",&object_type)==0)
+        getchar();
+      scanf("%d",&object_type);
+      if(object_type>=1 && object_type<=no_of_objects)
+        break;
+      else
+        printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
+
+    }
   }
-
-
-
-  printf("\n");
-  printf("choose any one cryptographic method from the following:\n");
-  for(i=0;i<no_of_algos;i++)
-  {
-   printf("%d->%s\n",i+1,algos[i]);
-  }
-  printf("\n");
-  while(1)
-  {
-    printf("INPUT: ");
-    if(scanf("%d",&crypt_type)==0)
-      getchar();
-    scanf("%d",&crypt_type);
-    if(crypt_type>=1 && crypt_type<=no_of_algos)
-      break;
-    else
-      printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
-
-  }
-  printf("\n");
-  printf("choose one type of object from the following:\n");
-  for(i=0;i<no_of_objects;i++)
-  {
-  printf("%d->%s\n",i+1,objects[i]);
-  }
-  printf("\n");
-  while(1)
-  {
-    printf("INPUT: ");
-    if(scanf("%d",&object_type)==0)
-      getchar();
-    scanf("%d",&object_type);
-    if(object_type>=1 && object_type<=no_of_objects)
-      break;
-    else
-      printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
-
-  }
-
   return 0;
 }
