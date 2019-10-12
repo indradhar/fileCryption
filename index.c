@@ -92,7 +92,7 @@ int main()
 
     }
 
-
+  getchar();
 if(type_of_op==1)
 {
   switch(crypt_type)

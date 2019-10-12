@@ -18,20 +18,23 @@ void shuffle(char *array, size_t n)
     }
 }
 void ma_encrypt_string(char *str,char *encryption_key)
-{
+{ //printf("check1");
   int i;
   for(i=0;i<strlen(str);i++)
   {
-    if(str[i]>='a' && str[i]<='Z')
-    {
+    if(str[i]>='a' && str[i]<='z')
+    { //printf("check3");
       str[i]=encryption_key[str[i]-'a'];
     }
     else if(str[i]>='A' && str[i]<='Z')
     {
       str[i]=encryption_key[str[i]-'A'];
     }
+    
 
   }
+  //printf("check2");
+  //printf("**%s**",str);
 }
 
 void ma_cipher_encrypt(int object_type)
@@ -47,20 +50,24 @@ void ma_cipher_encrypt(int object_type)
     encryption_key[i]='A'+i;
   }
   shuffle(encryption_key,26);// this is being done to generate random encryption key for each and every user.
-
+fflush(stdin);
   switch(object_type)
   {
     case 1:
           printf("please enter a string within 1024 characters: \nINPUT:");
           fgets(str,MAX_LIMIT-1,stdin);
+          // printf("len=%d\n",strlen(str));
+          str[strlen(str)-1]='\0';//to remove '\n' at last 
           ma_encrypt_string(str,encryption_key);
-          printf("The encrypted string is : %s",str);
+          printf("The encrypted string is : \"%s\" \n",str);
           printf("use this \'%s\' key to decrypt the string",encryption_key);
           break;
 
     case 2:
           printf("please enter a path(absolute) to required file:\nINPUT: ");
           fgets(file_name,MAX_LIMIT,stdin);
+          file_name[strlen(file_name)-1]='\0'; //to remove '\n' at last
+          // printf("file_name= %s",file_name);
           fs=fopen(file_name,"r");
           fd=fopen("dest.txt","w");
           if(fd==NULL || fs==NULL)
@@ -79,6 +86,8 @@ void ma_cipher_encrypt(int object_type)
             fclose(fd);
             remove(file_name);
             rename("dest.txt",file_name);
+            printf("successfully encrypted the file!\n");
+            printf("use this \'%s\' key to decrypt the file\n",encryption_key);
           }
           break;
 
@@ -104,7 +113,7 @@ void ma_cipher_decrypt(int object_type)
 
   printf("please enter the encryption key that used for encryption\nINPUT: ");
   scanf("%s",encryption_key);
-
+  getchar();// to clear the buffer(stdin)
   for(i=0;i<26;i++)
   {
     idx=encryption_key[i]-'A';
@@ -115,11 +124,15 @@ void ma_cipher_decrypt(int object_type)
     case 1:
             printf("please enter the encrypted string to decrypt! \n INPUT: ");
             fgets(str,MAX_LIMIT-1,stdin);
+            str[strlen(str)-1]='\0'; //to remove '\n' at last
             ma_decrypt_string(str,decryption_key);
+            printf("the decrypted string is :\"%s\"\n",str);
             break;
     case 2:
             printf("please enter the file name that is to decrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
+            file_name[strlen(file_name)-1]='\0'; //to remove '\n' at last
+            printf("file_name= %s\n",file_name);
             fs=fopen(file_name,"r");
             fd=fopen("dest.txt","w");
             if(fs==NULL || fd==NULL)
@@ -136,6 +149,7 @@ void ma_cipher_decrypt(int object_type)
             fclose(fd);
             remove(file_name);
             rename("dest.txt",file_name);
+            printf("successfully decrypted the file!\n\n");
             break;
 
   }
