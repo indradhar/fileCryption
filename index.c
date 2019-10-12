@@ -46,7 +46,7 @@ int main()
   */
 
   while(1) {
-    system(CLRSC);
+    // system(CLRSC);
     printf("choose one of the following operations to perform:\n");
     printf("1->encryption / cryptographic hash\n2->decryption\n3->exit\n");
     while(1)

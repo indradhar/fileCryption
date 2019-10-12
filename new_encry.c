@@ -11,14 +11,19 @@ int randNumber(int lower,int upper)
 
 void keyFile_encrypt_string(char *str)
 {   fflush(stdin);
-    FILE *fk;
-    char key_file_name[11];
+    FILE *fk,*fw;
+    char key_file_name[11],string_file_name[18];
+    char temp[]={"_string"};
     int i,j,random;
     for(i=0;i<10;i++)
     {
       key_file_name[i]='A'+randNumber(0,25);
     }
-
+    strcpy(string_file_name,key_file_name);
+    for(i=0;i<strlen(temp);i++)
+    {
+      string_file_name[i+10]=temp[i];
+    }
     fk=fopen(key_file_name,"w");//opening a file with random randNumber
     if(fk==NULL)
     {
@@ -28,13 +33,17 @@ void keyFile_encrypt_string(char *str)
 
     for(i=0;i<strlen(str);i++)
     {
-      random=randNumber(1,100);
+      random=randNumber(1,25);
       str[i]=str[i]+random;
       fprintf(fk, "%d ",random );
     }
+    // writting the string into a file.
+    fw=fopen(string_file_name,"w");
+    fputs(str,fw);
     fclose(fk);
+    fclose(fw);
     printf("\n the key used to encrypt is strored in file named \" %s \" in the current directory\n",key_file_name);
-
+    printf("the encrypted string is stored in the file named \"%s\"\n",string_file_name);
 }
 
 
@@ -61,7 +70,7 @@ void keyFile_encrypt_file(char *file_name)
 
             if (feof(fs))
                 break ;
-            random=randNumber(1,100);
+            random=randNumber(1,25);
             c=c+random;
             fputc(c,fd);
             fprintf(fk, "%d ",random );
@@ -85,7 +94,7 @@ void keyFile_decrypt_string(char *str,char *key_file_name)
 
     if(fk==NULL)
     {
-      printf("ERROR:unable to perform file handling operations!, exiting....");
+      printf("ERROR:unable to perform file handling operations!, exiting....\n");
       exit(0);
     }
 
@@ -95,7 +104,7 @@ void keyFile_decrypt_string(char *str,char *key_file_name)
         fscanf(fk,"%d",&key);
         str[i]=str[i]-key;
     }
-    printf("the decrypted string is \" %s \"",str);
+    printf("the decrypted string is \" %s \"\n",str);
     fclose(fk);
 }
 
@@ -110,7 +119,7 @@ void keyFile_decrypt_file(char *file_name,char *key_file_name)
 
   if(fk==NULL || fs==NULL || fd==NULL )
   {
-    printf("ERROR:unable to perform file handling operations!, exiting....");
+    printf("ERROR:unable to perform file handling operations!, exiting....\n");
     exit(0);
   }
 
@@ -120,8 +129,8 @@ void keyFile_decrypt_file(char *file_name,char *key_file_name)
           if(feof(fs))
             break;
 
-          key=fscanf(fk,"%d",&key);
-
+          fscanf(fk,"%d",&key);
+          // printf("key= %d\n",key);
           c=c-key;
           fputc(c,fd);
 
@@ -134,7 +143,7 @@ void keyFile_decrypt_file(char *file_name,char *key_file_name)
   remove(file_name);
   rename("dest.txt",file_name);
 
-  printf("the file is successfully decrypted!");
+  printf("the file is successfully decrypted!\n");
 
 }
 
@@ -169,7 +178,7 @@ void keyFile_encry(int object_type)
 void keyFile_decry(int object_type)
 {
     fflush(stdin);
-    char key_file_name[11],str[MAX_LIMIT],file_name[MAX_LIMIT];
+    char key_file_name[12],str[MAX_LIMIT],file_name[MAX_LIMIT];
 
 
     switch(object_type)
@@ -179,8 +188,9 @@ void keyFile_decry(int object_type)
             fgets(str,MAX_LIMIT-1,stdin);
             str[strlen(str)-1]='\0';
             printf("Enter absolute path to keyFile that is used encrypt the given encrypted string\nINPUT:  ");
-            fgets(key_file_name,10,stdin);
+            fgets(key_file_name,12,stdin);
             key_file_name[strlen(key_file_name)-1]='\0'; // to remove the '\n' at the end
+            printf("key_file_name: %s \n",key_file_name);
             keyFile_decrypt_string(str,key_file_name);
             printf("the decrypted string is : \" %s \" ",str);
             break;
@@ -189,8 +199,9 @@ void keyFile_decry(int object_type)
             fgets(file_name,MAX_LIMIT-1,stdin);
             file_name[strlen(file_name)-1]='\0'; // to remove the '\n' at the end
             printf("Enter absolute path to keyFile that is used encrypt the given encrypted file\nINPUT:  ");
-            fgets(key_file_name,10,stdin);
+            fgets(key_file_name,12,stdin);
             key_file_name[strlen(key_file_name)-1]='\0'; // to remove the '\n' at the end
+            printf("key_file_name: %s \n",key_file_name);
             keyFile_decrypt_file(file_name,key_file_name);
             break;
 
