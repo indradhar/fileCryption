@@ -23,24 +23,24 @@ void aesStringEnc(char *str) {
 	time_t t;
 	srand((unsigned) time(&t));
 
-    static unsigned char key[] = "01234567890123456789012345678901";
-	/*static unsigned char key[32];
+    //static unsigned char key[] = "01234567890123456789012345678901";
+	static unsigned char key[32];
 	printf("Key:");
 	for(int c1c=0;c1c<32;c1c++) {
-int tmp;
-		sprintf(key,"%d",tmp=rand()%10);
-		printf("%d",tmp);
-	}*/
+		int tmp;
+		key[c1c]=tmp=(char)((char)(rand()%10)+'0');
+		printf("%c",tmp);
+	}
 	printf("\n");
     /* A 128 bit IV */
-    static unsigned char iv[] = "0123456789012345";
-   /* static unsigned char iv[16];
+    //static unsigned char iv[] = "0123456789012345";
+   	static unsigned char iv[16];
 	printf("iv:");
 	for(int c1c=0;c1c<16;c1c++) {
 		int tmp;
-		sprintf(iv,"%d",tmp=rand()%10);
-		printf("%d",tmp);
-	}*/
+		iv[c1c]=tmp=(char)((char)(rand()%10)+'0');
+		printf("%c",tmp);
+	}
 	printf("\n");
     /* Message to be encrypted */
     unsigned char plaintext[strlen(str)];
@@ -84,25 +84,25 @@ fwrite(tag,1,16,f);
 fwrite(ciphertext,1,ciphertext_len,f);
 fclose(f);
     // Decrypt the ciphertext 
-printf(">>%s<<>>%d %s %ld<<>>%s<<>>%s<<>>%s<<\n",ciphertext, ciphertext_len, aad, strlen(aad), tag, key, iv);
-    decryptedtext_len = decrypt(ciphertext, ciphertext_len, aad, strlen(aad), tag, key, iv, decryptedtext);
+//printf(">>%s<<>>%d %s %ld<<>>%s<<>>%s<<>>%s<<\n",ciphertext, ciphertext_len, aad, strlen(aad), tag, key, iv);
+   /* decryptedtext_len = decrypt(ciphertext, ciphertext_len, aad, strlen(aad), tag, key, iv, decryptedtext);
 
     if(decryptedtext_len < 0)
     {
-        /* Verify error */
+        
         printf("Decrypted text failed to verify\n");
     }
     else
     {
-        /* Add a NULL terminator. We are expecting printable text */
+        
         decryptedtext[decryptedtext_len] = '\0';
 
-        /* Show the decrypted text */
+        
         printf("Decrypted text is:\n");
         printf("%s\n", decryptedtext);
     }
-
-    /* Remove error strings */
+*/
+    
     ERR_free_strings();
 
 }
@@ -116,24 +116,30 @@ void aesStringDec(char *str, char *ke, char *iiv) {
 
     //static unsigned char keya[] = "01234567890123456789012345678901";
 	static unsigned char keya[32];
-	strcpy(keya, ke);
+	//strcpy(keya, ke);
+for(int i=0;i<32;i++) {
+keya[i]=ke[i];
+}
 	//scanf("%s",keya);
 	/*static unsigned char key[32];
 	//printf("Key:");
 	for(int c1c=0;c1c<32;c1c++) {
 key[c1c]=ke[c1c];
 	}*/
-	printf("\n");
+	//printf("\n");
     /* A 128 bit IV */
     static unsigned char iva[16];// = "0123456789012345";
-	strcpy(iva, iiv);
-printf("/ke1:%s/ke2:%s/iv1:%s/iv2:%s/",keya,ke,iva,iiv);
+	//strcpy(iva, iiv);
+for(int i=0;i<16;i++) {
+iva[i]=iiv[i];
+}
+//printf("/ke1:%s/ke2:%s/iv1:%s/iv2:%s/",keya,ke,iva,iiv);
     /*static unsigned char iv[16];
 	//printf("iv:");
 	for(int c1c=0;c1c<16;c1c++) {
 iv[c1c]=iiv[c1c];
 	}*/ 
-	printf("\n");
+	//printf("\n");
     /* Message to be encrypted */
 
     /* Some additional data to be authenticated */
@@ -163,16 +169,17 @@ fseek(f, 0, SEEK_END);
 int sz = ftell(f);
 fseek(f, 0, SEEK_SET);
 fread(tag,1,16,f);
-printf("\n%s\n",tag);
+//printf("\n%s\n",tag);
 fread(ciphertext,1,sz-16,f);
-printf("\n%s\n",ciphertext);
+//printf("\n%s\n",ciphertext);
 fclose(f);
-FILE *fr = fopen("hell","wb");
+/*FILE *fr = fopen("hell","wb");
 fwrite(tag,1,16,fr);
 fwrite(ciphertext,1,sz-16,fr);
 fclose(fr);
+*/
     // Decrypt the ciphertext 
-printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
+//printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
     decryptedtext_len = decrypt(ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva, decryptedtext);
 
     if(decryptedtext_len < 0)
@@ -204,7 +211,7 @@ int main(int arc, char *argv[])
 	aesStringEnc(st1);
 
    	scanf("%s",keyb);
-	//printf(">/>%s</<",keyb);
+	
 
    	scanf("%s",ivb);
 	for(int i=0;i<32;i++) {
