@@ -150,6 +150,7 @@ void keyFile_encry(int object_type)
     case 1:
           printf("please enter a string of length atmost 1024 characters\nINPUT: ");
           fgets(str,MAX_LIMIT-1,stdin);
+          str[strlen(str)-1]='\0'; //to remove '\n' at the end of the string
           keyFile_encrypt_string(str);
           printf("tne encrypted string is:\' %s \'",str);
           break;
@@ -157,6 +158,7 @@ void keyFile_encry(int object_type)
     case 2:
             printf("please enter a absolute path of file that is to be encrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
+            file_name[strlen(file_name)-1]='\0'; // to remove the '\n' at the end
             keyFile_encrypt_file(file_name);
             break;
 
@@ -175,16 +177,20 @@ void keyFile_decry(int object_type)
       case 1:
             printf("Enter the string that is to be decrypted \nINPUT: ");
             fgets(str,MAX_LIMIT-1,stdin);
+            str[strlen(str)-1]='\0';
             printf("Enter absolute path to keyFile that is used encrypt the given encrypted string\nINPUT:  ");
             fgets(key_file_name,10,stdin);
+            key_file_name[strlen(key_file_name)-1]='\0'; // to remove the '\n' at the end
             keyFile_decrypt_string(str,key_file_name);
             printf("the decrypted string is : \" %s \" ",str);
             break;
      case 2:
             printf("Enter the absolute path of the file that is to be decrypted\nINPUT: ");
             fgets(file_name,MAX_LIMIT-1,stdin);
+            file_name[strlen(file_name)-1]='\0'; // to remove the '\n' at the end
             printf("Enter absolute path to keyFile that is used encrypt the given encrypted file\nINPUT:  ");
             fgets(key_file_name,10,stdin);
+            key_file_name[strlen(key_file_name)-1]='\0'; // to remove the '\n' at the end
             keyFile_decrypt_file(file_name,key_file_name);
             break;
 
