@@ -114,7 +114,9 @@ void aesStringDec(char *str, char *ke, char *iiv) {
     /* Set up the key and iv. Do I need to say to not hard code these in a real application? :-) */
 
 
-    static unsigned char keya[] = "01234567890123456789012345678901";
+    //static unsigned char keya[] = "01234567890123456789012345678901";
+	static unsigned char keya[32];
+	strcpy(keya, ke);
 	/*static unsigned char key[32];
 	//printf("Key:");
 	for(int c1c=0;c1c<32;c1c++) {
@@ -122,17 +124,19 @@ key[c1c]=ke[c1c];
 	}*/
 	printf("\n");
     /* A 128 bit IV */
-    static unsigned char iva[] = "0123456789012345";
+    static unsigned char iva[16];// = "0123456789012345";
+	strcpy(iva, iiv);
+printf("/ke1:%s/ke2:%s/iv1:%s/iv2:%s/",keya,ke,iva,iiv);
     /*static unsigned char iv[16];
 	//printf("iv:");
 	for(int c1c=0;c1c<16;c1c++) {
 iv[c1c]=iiv[c1c];
-	}*/
+	}*/ 
 	printf("\n");
     /* Message to be encrypted */
 
     /* Some additional data to be authenticated */
-    static unsigned char aad[] = "AAD-data";
+    static unsigned char aad2[] = "AAD-data";
 
     /* Buffer for ciphertext. Ensure the buffer is long enough for the
      * ciphertext which may be longer than the plaintext, dependant on the
@@ -167,8 +171,8 @@ fwrite(tag,1,16,fr);
 fwrite(ciphertext,1,sz-16,fr);
 fclose(fr);
     // Decrypt the ciphertext 
-printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad, strlen(aad), tag, keya, iva);
-    decryptedtext_len = decrypt(ciphertext, sz-16, aad, strlen(aad), tag, keya, iva, decryptedtext);
+printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
+    decryptedtext_len = decrypt(ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva, decryptedtext);
 
     if(decryptedtext_len < 0)
     {
@@ -193,14 +197,19 @@ printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad, strlen(aad), tag
 
 int main(int arc, char *argv[])
 {
-	char st1[1024], key[32],iv[16];
-	scanf("%s",st1);
+	char st1[1024],keyb[33],ivb[16];
 
-	aesStringEnc(st1);
+	//scanf("%s",st1);
+	//aesStringEnc(st1);
 
-   scanf("%s",key);
-   scanf("%s",iv);
-	aesStringDec("data",key,iv);
+   	scanf("%s",keyb);
+	printf(">/>%s</<",keyb);
+
+   	scanf("%s",ivb);
+	aesStringDec("data",keyb,ivb);
+
+	printf("\n\n");
+	aesStringDec("data","01234567890123456789012345678901",ivb);
     return 0;
 }
 
