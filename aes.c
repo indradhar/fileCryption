@@ -117,6 +117,7 @@ void aesStringDec(char *str, char *ke, char *iiv) {
     //static unsigned char keya[] = "01234567890123456789012345678901";
 	static unsigned char keya[32];
 	strcpy(keya, ke);
+	//scanf("%s",keya);
 	/*static unsigned char key[32];
 	//printf("Key:");
 	for(int c1c=0;c1c<32;c1c++) {
@@ -197,19 +198,23 @@ printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), t
 
 int main(int arc, char *argv[])
 {
-	char st1[1024],keyb[33],ivb[16];
+	char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
 
-	//scanf("%s",st1);
-	//aesStringEnc(st1);
+	scanf("%s",st1);
+	aesStringEnc(st1);
 
    	scanf("%s",keyb);
-	printf(">/>%s</<",keyb);
+	//printf(">/>%s</<",keyb);
 
    	scanf("%s",ivb);
-	aesStringDec("data",keyb,ivb);
+	for(int i=0;i<32;i++) {
+	keyd[i]=keyb[i];
+	}
+	for(int i=0;i<16;i++) {
+	ivd[i]=ivb[i];
+	}
+	aesStringDec("data",keyd,ivd);
 
-	printf("\n\n");
-	aesStringDec("data","01234567890123456789012345678901",ivb);
     return 0;
 }
 
