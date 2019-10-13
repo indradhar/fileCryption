@@ -504,7 +504,7 @@ FILE *fr = fopen("DECT","wb");
 fseek(f, 0, SEEK_END);
 int sze = ftell(f);
 int ntes=sze%(128+16);
-printf("byt:%d\n",sze);
+//printf("byt:%d\n",sze);
 fseek(f, 0, SEEK_SET);
 int vasd=0;
 while((fread(tag,1,16,f)>0)&&vasd<(sze/(128+16))) {
@@ -532,7 +532,7 @@ fwrite(decryptedtext,1,128,fr);
 vasd++;
 }
 if(ntes!=0) {
-printf("ntes-16:%d\n",ntes-16);
+//printf("ntes-16:%d\n",ntes-16);
 //fread(tag,1,16,f); ALREADY READ
 fread(ciphertext,1,ntes,f);
 int decryptedtext_len = 0;
@@ -552,8 +552,8 @@ fwrite(decryptedtext,1,ntes-16,fr);
         decryptedtext[decryptedtext_len] = '\0';
 
         /* Show the decrypted text */
-        printf("Decrypted text is:\n");
-        printf("%s\n", decryptedtext);
+        //printf("Decrypted text is:\n");
+        //printf("%s\n", decryptedtext);
     }
 
 }
