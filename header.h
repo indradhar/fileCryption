@@ -13,3 +13,7 @@ void keyFile_decrypt_string(char *str,char *key_file_name);
 void keyFile_decrypt_file(char *file_name,char *key_file_name);
 void keyFile_encry(int object_type);
 void keyFile_decry(int object_type);
+void aesStringEnc(char *str);
+void aesStringDec(char *str, char *ke, char *iiv);
+void aesFileE(char* nam);
+void aesFileD(char *nam);
