@@ -440,7 +440,8 @@ fwrite(ciphertext,1,ciphertext_len,fr);
 
 fclose(f);
 fclose(fr);
-
+remove(nam);
+rename("TEMF",nam);
 
     /* Do something useful with the ciphertext here */
     //printf("Ciphertext is:\n");
@@ -558,6 +559,8 @@ fwrite(decryptedtext,1,ntes-16,fr);
 }
 fclose(f);
 fclose(fr);
+remove(nam);
+rename("DECT",nam);
     /* Remove error strings */
     ERR_free_strings();
 
