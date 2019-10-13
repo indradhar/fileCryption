@@ -107,7 +107,7 @@ int main()
     if(object_type==3)
       continue;
 
-if(type_of_op==1)
+if(type_of_op==1)//Encryption
 {
   switch(crypt_type)
   {
@@ -118,6 +118,20 @@ if(type_of_op==1)
             keyFile_encry(object_type);
             break;
     case 3:
+            if(object_type==1) {
+              printf("Please enter string to encrypt(max length:1023) :");
+              char sth1[1024];
+              scanf("%1023s",sth1);
+              
+              aesStringEnc(sth1);
+             }
+            else if(object_type==2) {
+              printf("Please enter file path(max path length:1023) :");
+              char sth2[1024];
+              scanf("%1023s",sth2);
+              
+              aesFileE(sth2);
+            }
             break;
     case 4:
             if(object_type==1) {
@@ -136,7 +150,7 @@ if(type_of_op==1)
 
   }
 }
-else if(type_of_op==2)
+else if(type_of_op==2)//Decryption
 {
   switch(crypt_type)
   {
@@ -147,6 +161,27 @@ else if(type_of_op==2)
             keyFile_decry(object_type);
             break;
     case 3:
+            if(object_type==1) {
+              printf("Please enter filename to decrypt string from(max length:1023) :");
+              char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
+              scanf("%s",st1);
+              scanf("%s",keyb);
+              scanf("%s",ivb);
+              for(int i=0;i<32;i++) {
+              keyd[i]=keyb[i];
+              }
+              for(int i=0;i<16;i++) {
+              ivd[i]=ivb[i];
+              }
+              aesStringDec(st1,keyd,ivd);
+             }
+            else if(object_type==2) {
+              printf("Please enter file path(max path length:1023) :");
+              char sth2[1024];
+              scanf("%1023s",sth2);
+              
+              aesFileD(sth2);
+            }
             break;
     case 4:
             printf("Not a valid option\n(good luck, if you mean it)\n");
