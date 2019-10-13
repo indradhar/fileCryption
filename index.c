@@ -18,7 +18,7 @@
 int main()
 {
   int i,j,type_of_op,crypt_type,object_type,no_of_algos,no_of_objects;
-  char algos[6][30]={"mono alphabetic cipher","key file encryption","AES","SHA-1","RSA","go back"};
+  char algos[6][30]={"mono alphabetic cipher","key file encryption","AES","SHA-1","go back"};
   char objects[3][10]={"string","file","goto menu"};
   no_of_algos=sizeof(algos)/sizeof(algos[0]);
   no_of_objects=sizeof(objects)/sizeof(objects[0]);
@@ -35,8 +35,7 @@ int main()
     2->key file encryption
     3->AES
     4->SHA-1
-    5->RSA
-    6->go back
+    5->go back
     
   type of objects
     1->string
@@ -82,7 +81,7 @@ int main()
         printf("\n!!!! PLEASE ENTER CORRECT OPTION NUMBER !!!!!\n");
 
     }
-    if(crypt_type==6)
+    if(crypt_type==5)
       continue;
     printf("\n");
     system(CLRSC);
