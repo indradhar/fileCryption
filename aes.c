@@ -411,6 +411,7 @@ FILE *f = fopen(nam,"rb");
 FILE *fr = fopen("TEMF","wb");
 fseek(f, 0, SEEK_END);
 int sz = ftell(f);
+printf("ptsz:%d\n",sz);
 int nte=sz%128,ntf=sz/128;
 fseek(f, 0, SEEK_SET);
 while(ntf>0) {
@@ -530,14 +531,15 @@ fwrite(decryptedtext,1,128,fr);
 vasd++;
 }
 if(ntes!=0) {
-printf("ntes:%d\n",ntes);
-fread(ciphertext,1,128,f);
+printf("ntes-16:%d\n",ntes-16);
+//fread(tag,1,16,f); ALREADY READ
+fread(ciphertext,1,ntes,f);
 int decryptedtext_len = 0;
     unsigned char decryptedtext[2048];
     // Decrypt the ciphertext 
 //printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
-    decryptedtext_len = decrypt(ciphertext, ntes, aad2, strlen(aad2), tag, keyf, ivf, decryptedtext);
-fwrite(decryptedtext,1,ntes,fr);
+    decryptedtext_len = decrypt(ciphertext,ntes-16, aad2, strlen(aad2), tag, keyf, ivf, decryptedtext);
+fwrite(decryptedtext,1,ntes-16,fr);
     if(decryptedtext_len < 0)
     {
         /* Verify error */
