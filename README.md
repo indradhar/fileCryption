@@ -6,10 +6,12 @@ A simple C program for encryption/decryption/hashing of strings and files.
 * mono alphabetic cipher<br>
 * key file encryption<br>
 * AES
+
 ### Decrypt<br>
 * mono alphabetic cipher<br>
 * key file encryption<br>
 * AES
+
 ### Cryptographic hash
 * SHA-1
 
