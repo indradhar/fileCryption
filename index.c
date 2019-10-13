@@ -18,7 +18,7 @@
 int main()
 {
   int i,j,type_of_op,crypt_type,object_type,no_of_algos,no_of_objects;
-  char algos[6][30]={"mono alphabetic cipher","key file encryption","AES","SHA-1","go back"};
+  char algos[5][30]={"mono alphabetic cipher","key file encryption","AES","SHA-1","go back"};
   char objects[3][10]={"string","file","goto menu"};
   no_of_algos=sizeof(algos)/sizeof(algos[0]);
   no_of_objects=sizeof(objects)/sizeof(objects[0]);
