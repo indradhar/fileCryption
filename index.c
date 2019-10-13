@@ -165,7 +165,9 @@ else if(type_of_op==2)//Decryption
               printf("Please enter filename to decrypt string from(max length:1023) :");
               char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
               scanf("%s",st1);
+              printf("Please enter key:\n");
               scanf("%s",keyb);
+              printf("Please enter iv:\n");
               scanf("%s",ivb);
               for(int i=0;i<32;i++) {
               keyd[i]=keyb[i];
