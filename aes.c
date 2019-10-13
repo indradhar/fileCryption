@@ -6,6 +6,8 @@
 #include <string.h>
 
 void handleErrors(void);
+void aesFileE(char* nam);
+void aesFileD(char *nam);
 int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *aad,
             int aad_len, unsigned char *key, unsigned char *iv,
             unsigned char *ciphertext, unsigned char *tag);
@@ -164,7 +166,7 @@ iv[c1c]=iiv[c1c];
     /* ciphertext[0] ^= 1; */
     /* tag[0] ^= 1; */
 FILE *f = fopen(str,"rb");
-printf("Also: tag and encrypted-text are saved in this directory in file named data.\n");
+//printf("Also: tag and encrypted-text are saved in this directory in file named data.\n");
 fseek(f, 0, SEEK_END);
 int sz = ftell(f);
 fseek(f, 0, SEEK_SET);
@@ -205,23 +207,20 @@ fclose(fr);
 
 int main(int arc, char *argv[])
 {
-	char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
-
-	scanf("%s",st1);
-	aesStringEnc(st1);
-
-   	scanf("%s",keyb);
-	
-
-   	scanf("%s",ivb);
-	for(int i=0;i<32;i++) {
-	keyd[i]=keyb[i];
-	}
-	for(int i=0;i<16;i++) {
-	ivd[i]=ivb[i];
-	}
-	aesStringDec("data",keyd,ivd);
-
+	//char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
+	//scanf("%s",st1);
+	//aesStringEnc(st1);
+   	//scanf("%s",keyb);
+   	//scanf("%s",ivb);
+	//for(int i=0;i<32;i++) {
+	//keyd[i]=keyb[i];
+	//}
+	//for(int i=0;i<16;i++) {
+	//ivd[i]=ivb[i];
+	//}
+	//aesStringDec("data",keyd,ivd);
+	aesFileE("t4");
+	aesFileD("TEMF");
     return 0;
 }
 
@@ -359,4 +358,207 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *aad,
         /* Verify failed */
         return -1;
     }
+}
+void aesFileE(char *nam) {
+	
+	OpenSSL_add_all_algorithms();
+    	ERR_load_crypto_strings();
+	time_t t;
+	srand((unsigned) time(&t));
+
+    //static unsigned char key[] = "01234567890123456789012345678901";
+	static unsigned char key[32];
+	printf("Key:");
+	for(int c1c=0;c1c<32;c1c++) {
+		int tmp;
+		key[c1c]=tmp=(char)((char)(rand()%10)+'0');
+		printf("%c",tmp);
+	}
+	printf("\n");
+    /* A 128 bit IV */
+    //static unsigned char iv[] = "0123456789012345";
+   	static unsigned char iv[16];
+	printf("iv:");
+	for(int c1c=0;c1c<16;c1c++) {
+		int tmp;
+		iv[c1c]=tmp=(char)((char)(rand()%10)+'0');
+		printf("%c",tmp);
+	}
+	printf("\n");
+
+    /* Message to be encrypted */
+    unsigned char plaintext[128];
+//for(int i=0;i<strlen(str);i++) {
+//	plaintext[i]=str[i];
+//}
+
+    /* Some additional data to be authenticated */
+    static unsigned char aad[] = "AAD-data";
+
+    /* Buffer for ciphertext. Ensure the buffer is long enough for the
+     * ciphertext which may be longer than the plaintext, dependant on the
+     * algorithm and mode
+     */
+
+
+    /* Buffer for the decrypted text */
+    unsigned char decryptedtext[2048];
+
+
+
+    int decryptedtext_len = 0;
+FILE *f = fopen(nam,"rb");
+FILE *fr = fopen("TEMF","wb");
+fseek(f, 0, SEEK_END);
+int sz = ftell(f);
+int nte=sz%128,ntf=sz/128;
+fseek(f, 0, SEEK_SET);
+while(ntf>0) {
+	fread(plaintext,1,128,f);
+    unsigned char ciphertext[2048];
+     int ciphertext_len = 0;
+    /* Buffer for the tag */
+    unsigned char tag[16];
+    /* Encrypt the plaintext */
+    ciphertext_len = encrypt(plaintext, 128, aad, strlen(aad), key, iv, ciphertext, tag);
+fwrite(tag,1,16,fr);
+fwrite(ciphertext,1,ciphertext_len,fr);
+ntf--;
+}
+if(nte>0) {
+fread(plaintext,1,nte,f);
+unsigned char ciphertext[2048];
+     int ciphertext_len = 0;
+    /* Buffer for the tag */
+    unsigned char tag[16];
+    /* Encrypt the plaintext */
+    ciphertext_len = encrypt(plaintext, nte, aad, strlen(aad), key, iv, ciphertext, tag);
+fwrite(tag,1,16,fr);
+fwrite(ciphertext,1,ciphertext_len,fr);
+}
+
+fclose(f);
+fclose(fr);
+
+
+    /* Do something useful with the ciphertext here */
+    //printf("Ciphertext is:\n");
+    //BIO_dump_fp(stdout, ciphertext, ciphertext_len);
+	
+    //printf("Tag is:\n");
+    //BIO_dump_fp(stdout, tag, 16);
+ 
+    
+    ERR_free_strings();
+
+}
+void aesFileD(char *nam) {
+    OpenSSL_add_all_algorithms();
+    ERR_load_crypto_strings();     
+
+	char keyf[33],ivf[17];
+    
+	static unsigned char keye[32];
+	printf("Please enter key:");
+	scanf("%s",keyf);
+for(int i=0;i<32;i++) {
+keye[i]=keyf[i];
+}
+
+    /* A 128 bit IV */
+    static unsigned char ive[16];
+	printf("Please enter iv:");
+	scanf("%s",ivf);	
+for(int i=0;i<16;i++) {
+ive[i]=ivf[i];
+}
+
+   
+    /* Some additional data to be authenticated */
+    static unsigned char aad2[] = "AAD-data";
+
+    /* Buffer for ciphertext. Ensure the buffer is long enough for the
+     * ciphertext which may be longer than the plaintext, dependant on the
+     * algorithm and mode
+     */
+    unsigned char ciphertext[2048];
+
+    /* Buffer for the decrypted text */
+
+
+    /* Buffer for the tag */
+    unsigned char tag[16];
+
+    int ciphertext_len = 128;
+
+
+    /* Mess with stuff */
+    /* ciphertext[0] ^= 1; */
+    /* tag[0] ^= 1; */
+
+FILE *f = fopen(nam,"rb");
+FILE *fr = fopen("DECT","wb");
+
+fseek(f, 0, SEEK_END);
+int sze = ftell(f);
+int ntes=sze%(128+16);
+printf("byt:%d\n",sze);
+fseek(f, 0, SEEK_SET);
+int vasd=0;
+while((fread(tag,1,16,f)>0)&&vasd<(sze/(128+16))) {
+fread(ciphertext,1,128,f);
+int decryptedtext_len = 0;
+    unsigned char decryptedtext[2048];
+    // Decrypt the ciphertext 
+//printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
+    decryptedtext_len = decrypt(ciphertext, 128, aad2, strlen(aad2), tag, keyf, ivf, decryptedtext);
+fwrite(decryptedtext,1,128,fr);
+    if(decryptedtext_len < 0)
+    {
+        /* Verify error */
+        printf("Decrypted text failed to verify\n");
+    }
+    else
+    {
+        /* Add a NULL terminator. We are expecting printable text */
+        decryptedtext[decryptedtext_len] = '\0';
+
+        /* Show the decrypted text */
+        printf("Decrypted text is:\n");
+        printf("%s\n", decryptedtext);
+    }
+vasd++;
+}
+if(ntes!=0) {
+printf("ntes:%d\n",ntes);
+fread(ciphertext,1,128,f);
+int decryptedtext_len = 0;
+    unsigned char decryptedtext[2048];
+    // Decrypt the ciphertext 
+//printf(">>%s<<>>%d %s %ld %s %s %s<<\n",ciphertext, sz-16, aad2, strlen(aad2), tag, keya, iva);
+    decryptedtext_len = decrypt(ciphertext, ntes, aad2, strlen(aad2), tag, keyf, ivf, decryptedtext);
+fwrite(decryptedtext,1,ntes,fr);
+    if(decryptedtext_len < 0)
+    {
+        /* Verify error */
+        printf("Decrypted text failed to verify\n");
+    }
+    else
+    {
+        /* Add a NULL terminator. We are expecting printable text */
+        decryptedtext[decryptedtext_len] = '\0';
+
+        /* Show the decrypted text */
+        printf("Decrypted text is:\n");
+        printf("%s\n", decryptedtext);
+    }
+
+}
+fclose(f);
+fclose(fr);
+    /* Remove error strings */
+    ERR_free_strings();
+
+
+
 }
