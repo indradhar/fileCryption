@@ -205,8 +205,8 @@ fclose(fr);
 }
 
 
-int main(int arc, char *argv[])
-{
+//int main(int arc, char *argv[])
+//{
 	//char st1[1024],keyb[33],ivb[17],keyd[32],ivd[16];
 	//scanf("%s",st1);
 	//aesStringEnc(st1);
@@ -219,10 +219,10 @@ int main(int arc, char *argv[])
 	//ivd[i]=ivb[i];
 	//}
 	//aesStringDec("data",keyd,ivd);
-	aesFileE("t4");
-	aesFileD("TEMF");
-    return 0;
-}
+	//aesFileE("t4");
+	//aesFileD("TEMF");
+    //return 0;
+//}
 
 void handleErrors(void)
 {
