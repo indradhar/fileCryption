@@ -1,4 +1,7 @@
 # fileCryption
+ Note: The code is incomplete and works only for some cases.  
+(Practice code)   
+
 A simple C program for encryption/decryption/hashing of strings and files.
 
 ## Features
